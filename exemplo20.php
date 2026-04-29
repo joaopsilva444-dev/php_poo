@@ -19,3 +19,34 @@ class NotificadorSMS implements INotificador{
         echo"SMS enviado para {$destinatario}. Mensagem: {$mensagem}.";
     }
 }
+
+// Implementar: Whatsapp
+class Notificadorwhatsapp implements INotificador{
+    public function enviar($destinatario, $mensagem)
+    {
+        echo "Whatsapp enviado para {$destinatario}. Mensagem: {$mensagem}.";
+    }
+}
+
+// Classe que usa a interface
+class SistemaDeNotificacoes{
+    private $notificador;
+
+    public function __construct(INotificador $notificador)
+    {
+        $this->notificador = $notificador;
+    }
+
+    public function notificarUsuario($destinatario, $mensagem)
+    {
+        $this->notificador->enviar($destinario, $mensgem);
+    }
+}
+
+$sistemaEmail = new SistemaDeNotificacoes(new NotificadorEmail());
+$sistemaSMS = new SistemaDeNotificacoes(new NotificadorSMS());
+$sistemaWhatsapp = new SistemaDeNotificacoes(new Notificadorwhatsapp);
+
+$sistemaEmail->notificarUsurio("joao@email.com", "Seu Pedido foi confirmado");
+$sistemaSMS->notificarUsuario(17997651234, "Seu Pedido foi confirmado");
+$sistemaWhatsapp->notificarUsuario("17997651234", "Seu Pedido foi confirmado");
